@@ -1,0 +1,5 @@
+# local data (SQLite DB etc)
+data/
+
+# real env file 
+.env

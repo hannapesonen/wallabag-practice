@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  wallabag:
+    image: wallabag/wallabag
+    container_name: wallabag_standalone
+    restart: unless-stopped
+    environment:
+      - SYMFONY__ENV__DATABASE_DRIVER=${DATABASE_DRIVER}
+      - SYMFONY__ENV__DATABASE_PATH=${DATABASE_PATH}
+      - SYMFONY__ENV__DOMAIN_NAME=${DOMAIN_NAME}
+    volumes:
+      - ./data:/var/www/wallabag/data
+    ports:
+      - "8080:80"
