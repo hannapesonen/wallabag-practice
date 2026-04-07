@@ -23,7 +23,14 @@ Instructions for running on Win 11. Run commands in PowerShell or CMD
     (check that OSType: linux)
     docker run hello-world
 
-- Clone repo (in cmd)
+##
+- make directory for SQLite DB
+    .\data
+- start Wallabag
+    docker compose -f compose-wallabag.yml up -d
+
+##
+- Clone original Wallabag repo (in cmd) (optional)
     cd C:\dev
     git clone https://github.com/wallabag/wallabag.git
     cd .\wallabag
