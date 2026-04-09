@@ -4,3 +4,6 @@ db-data/
 
 # real env file 
 .env
+
+# terraform variables
+.tfvars
