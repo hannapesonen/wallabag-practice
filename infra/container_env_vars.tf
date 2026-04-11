@@ -13,7 +13,7 @@ locals {
         },
         {
             name = "SYMFONY__ENV__DATABASE_USER"
-            value = "${azurerm_postresql_flexible_server.db.administrator_login}@${azurerm_postgresql_flexible_server.db.name}"
+            value = "${azurerm_postgresql_flexible_server.db.administrator_login}@${azurerm_postgresql_flexible_server.db.name}"
         }
     ]
   )

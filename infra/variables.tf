@@ -15,3 +15,8 @@ variable "postgres_admin_password" {
   description = "PostgreSQL admin password"
   sensitive = true
 }
+
+variable "db_name" {
+  type = string
+  description = "Name of the PostgreSQL DB"
+}

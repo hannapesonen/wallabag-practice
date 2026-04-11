@@ -10,6 +10,16 @@ resource "azurerm_container_app" "wallabag" {
   container_app_environment_id = azurerm_container_app_environment.env.id
   revision_mode = "Single"
 
+  secret {
+    name = "acr-password"
+    value = azurerm_container_registry.acr.admin_password
+  }
+
+  secret {
+    name = "db-password"
+    value = azurerm_postgresql_flexible_server.db.administrator_password
+  }
+
   template {
     container {
         name = "wallabag"
@@ -21,13 +31,13 @@ resource "azurerm_container_app" "wallabag" {
           for_each = local.wallabag_env_full
           content {
             name = env.value.name
-            value = env.value.name
+            value = env.value.value
           }
         }
 
         env {
             name = "SYMFONY__ENV__DATABASE_PASSWORD"
-            secret_name = "acr-password"
+            secret_name = "db-password"
         }
     }
 

@@ -13,7 +13,7 @@ locals {
         value = "pdo_pgsql"
     },
     {
-        name = "SYMFONY_ENV__DATABASE_PORT"
+        name = "SYMFONY__ENV__DATABASE_PORT"
         value = "5432"
     },
     {
