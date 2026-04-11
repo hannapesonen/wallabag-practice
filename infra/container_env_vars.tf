@@ -1,3 +1,4 @@
+# Environment variables for PostgreSQL Flexible Server
 locals {
   wallabag_env_full = concat(
     local.wallabag_env,

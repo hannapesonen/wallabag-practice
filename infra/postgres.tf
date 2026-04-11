@@ -1,3 +1,4 @@
+# settings for the Azure PostgreSQL Flexible Server
 resource "azurerm_postgresql_flexible_server" "db" {
   name = local.pg_name
   resource_group_name = azurerm_resource_group.rg.name

@@ -7,7 +7,7 @@ variable "location" {
 variable "project_name" {
   type = string
   description = "Short name for this project"
-  default = "wallabag-test"
+  default = "wallabag"
 }
 
 variable "postgres_admin_password" {
