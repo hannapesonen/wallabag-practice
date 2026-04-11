@@ -2,6 +2,9 @@
 data/
 db-data/
 
+# old tests
+wallabag_old/
+
 # real env file 
 .env
 
