@@ -10,6 +10,8 @@ resource "azurerm_postgresql_flexible_server" "db" {
   storage_mb = "32768"
   sku_name = "B_Standard_B1ms"
 
+  zone = "1"
+
   authentication {
     password_auth_enabled = true
   }
@@ -18,8 +20,7 @@ resource "azurerm_postgresql_flexible_server" "db" {
 }
 
 resource "azurerm_postgresql_flexible_server_database" "wallabag_db" {
-  name = "wallabag"
+  name = local.pg_name
   server_id = azurerm_postgresql_flexible_server.db.id
   charset = "UTF8"
-  collation = "en_us.utf8"
 }

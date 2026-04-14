@@ -4,6 +4,25 @@ resource "azurerm_container_app_environment" "env" {
   resource_group_name = azurerm_resource_group.rg.name
 }
 
+resource "azapi_resource" "env_storage" {
+  type = "Microsoft.App/managedEnvironments/storages@2022-03-01"
+  name = "wallabagfiles"
+  parent_id = azurerm_container_app_environment.env.id
+
+  body = {
+    properties = {
+      azureFile = {
+        accountName = azurerm_storage_account.wallabag_sa.name
+        accountKey = azurerm_storage_account.wallabag_sa.primary_access_key
+        shareName = azurerm_storage_share.wallabag_share.name
+        accessMode = "ReadWrite"
+      }
+    }
+  }
+
+  schema_validation_enabled = false
+}
+
 resource "azurerm_container_app" "wallabag" {
   name = local.app_name
   resource_group_name = azurerm_resource_group.rg.name
@@ -20,24 +39,36 @@ resource "azurerm_container_app" "wallabag" {
     value = azurerm_postgresql_flexible_server.db.administrator_password
   }
 
+  secret {
+    name = "storage-key"
+    value = azurerm_storage_account.wallabag_sa.primary_access_key
+  }
+
   template {
+    volume {
+      name = "wallabagdata"
+      storage_type = "AzureFile"
+      storage_name = azapi_resource.env_storage.name
+    }
+
     container {
         name = "wallabag"
         image = "${azurerm_container_registry.acr.login_server}/${var.project_name}:latest"
         cpu = 0.5
         memory = "1Gi"
 
+        volume_mounts {
+          name = "wallabagdata"
+          path = "/var/www/wallabag/db-data"
+        }
+
         dynamic "env" {
           for_each = local.wallabag_env_full
           content {
             name = env.value.name
-            value = env.value.value
+            value = lookup(env.value, "value", null)
+            secret_name = lookup(env.value, "secret_name", null)
           }
-        }
-
-        env {
-            name = "SYMFONY__ENV__DATABASE_PASSWORD"
-            secret_name = "db-password"
         }
     }
 

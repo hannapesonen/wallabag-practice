@@ -19,4 +19,5 @@ variable "postgres_admin_password" {
 variable "db_name" {
   type = string
   description = "Name of the PostgreSQL DB"
+  default = "wallabag-pg"
 }
