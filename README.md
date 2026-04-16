@@ -30,7 +30,7 @@ Deploy core infrastructure via Terraform → Import Wallabag official image into
 ---
 
 ## Repository Structure
-
+```
 /wallabag
 |-- README.md
 |-- compose-wallabag.yml
@@ -48,7 +48,7 @@ Deploy core infrastructure via Terraform → Import Wallabag official image into
     |-- storage.tf
     |-- terraform.tfvars
     `-- variables.tf
-
+```
 ---
 
 ## Deployment Workflow
