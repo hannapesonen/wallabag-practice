@@ -32,22 +32,22 @@ Deploy core infrastructure via Terraform → Import Wallabag official image into
 ## Repository Structure
 
 /wallabag
-├── README.md
-├── compose-wallabag.yml
-├── env.example
-└── infra/
-    ├── acr.tf
-    ├── container_app.tf
-    ├── container_env_vars.tf
-    ├── container_secrets.tf
-    ├── locals.tf
-    ├── main.tf
-    ├── outputs.tf
-    ├── postgres.tf
-    ├── providers.tf
-    ├── storage.tf
-    ├── terraform.tfvars
-    └── variables.tf
+|-- README.md
+|-- compose-wallabag.yml
+|-- env.example
+`-- infra/
+    |-- acr.tf
+    |-- container_app.tf
+    |-- container_env_vars.tf
+    |-- container_secrets.tf
+    |-- locals.tf
+    |-- main.tf
+    |-- outputs.tf
+    |-- postgres.tf
+    |-- providers.tf
+    |-- storage.tf
+    |-- terraform.tfvars
+    `-- variables.tf
 
 ---
 
