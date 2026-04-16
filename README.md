@@ -99,8 +99,8 @@ Connection details are provided via Terraform‑managed environment variables an
 
 
 ### 2. Review and apply the plan
-`terraform plan`
-`terraform apply`
+```terraform plan
+terraform apply```
 
 
 ### 4. Retrieve the container app URL
