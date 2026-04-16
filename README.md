@@ -67,11 +67,13 @@ The Container App is deployed only after the image is available in ACR. This is 
 
 ### 2. Import the Wallabag image into ACR
 Once ACR exists, the official upstream Wallabag image is imported directly from Docker Hub:
+```
 az acr import \
 --name <acr-name> \
 --source docker.io/wallabag/wallabag:latest \
 --image wallabag:latest
- 
+```
+
 ### 3. Deploy the Azure Container App with Terraform
 Uncomment relevant parts of container_app.tf and Terraform deploys the Container App, referencing the imported image.
 
@@ -93,12 +95,12 @@ Connection details are provided via Terraform‑managed environment variables an
 ## How to Deploy
 
 ### 1. Initialize Terraform
-terraform init
+`terraform init`
 
 
 ### 2. Review and apply the plan
-terraform plan
-terraform apply
+`terraform plan`
+`terraform apply`
 
 
 ### 4. Retrieve the container app URL
