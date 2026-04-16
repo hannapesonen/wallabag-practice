@@ -21,3 +21,9 @@ variable "db_name" {
   description = "Name of the PostgreSQL DB"
   default = "wallabag-pg"
 }
+
+variable "wallabag_image_tag" {
+  type = string
+  description = "tag for the Wallabag image stored in ACR"
+  default = "latest"
+}

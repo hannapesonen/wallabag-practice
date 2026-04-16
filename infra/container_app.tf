@@ -53,7 +53,7 @@ resource "azurerm_container_app" "wallabag" {
 
     container {
         name = "wallabag"
-        image = "${azurerm_container_registry.acr.login_server}/${var.project_name}:latest"
+        image = "${azurerm_container_registry.acr.login_server}/${var.project_name}:${var.wallabag_image_tag}"
         cpu = 0.5
         memory = "1Gi"
 
