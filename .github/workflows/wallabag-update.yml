@@ -20,18 +20,18 @@ jobs:
                 creds: ${{ secrets.AZURE_CREDENTIALS }}
             - name: Log into ACR
               run: |
-                az acr login --name ${{ secrets.ACR_USERNAME}}
+                az acr login --name ${{ secrets.ACR_NAME}}
             - name: Pull upstream Wallabag image
               run: |
                 docker pull wallabag/wallabag:latest
             - name: Pull current ACR image
               run: |
-                docker pull ${{ secrets.ACR_USERNAME}}.azurecr.io/wallabag:latest || true
+                docker pull ${{ secrets.ACR_NAME}}.azurecr.io/wallabag:latest || true
             - name: Compare digests
               id: digest
               run: |
                 UPSTREAM=$(docker inspect wallabag/wallabag:latest --format='{{index .RepoDigests 0}}')
-                LOCAL=$(docker inspect ${{ secrets.ACR_USERNAME}}.azurecr.io/wallabag:latest --format='{{index .RepoDigests 0}}' || echo "none")
+                LOCAL=$(docker inspect ${{ secrets.ACR_NAME}}.azurecr.io/wallabag:latest --format='{{index .RepoDigests 0}}' || echo "none")
 
                 echo "upstream=$UPSTREAM" >> $GITHUB_OUTPUT
                 echo "local=$LOCAL" >> $GITHUB_OUTPUT
@@ -41,7 +41,7 @@ jobs:
             - name: Push updated image to ACR
               if: steps.digest.outputs.upstream != steps.digest.outputs.local
               run: |
-                docker tag wallabag/wallabag:latest ${{ secrets.ACR_USERNAME}}.azurecr.io/wallabag:latest
+                docker tag wallabag/wallabag:latest ${{ secrets.ACR_NAME}}.azurecr.io/wallabag:latest
                 docker push ${{ secrets.ACR_NAME}}.azurecr.io/wallabag:latest
             - name: Deploy updated image (with Terraform)
               if: steps.digest.outputs.upstream != steps.digest.outputs.local
