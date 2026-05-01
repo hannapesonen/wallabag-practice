@@ -36,7 +36,10 @@ jobs:
               run: |
                 UPSTREAM=$(docker inspect wallabag/wallabag:latest --format='{{index .RepoDigests 0}}')
                 LOCAL=$(docker inspect ${{ secrets.ACR_NAME}}.azurecr.io/wallabag:latest --format='{{index .RepoDigests 0}}' || echo "none")
-
+                
+                echo "Upstream digest: $UPSTREAM"
+                echo "Local digest: $LOCAL"
+                
                 echo "upstream=$UPSTREAM" >> $GITHUB_OUTPUT
                 echo "local=$LOCAL" >> $GITHUB_OUTPUT
             
