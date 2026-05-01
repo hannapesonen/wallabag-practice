@@ -23,9 +23,14 @@ The deployment consists of the following components:
 - **[Azure Container Apps]** — Runs the Wallabag application in a serverless container environment  
 - **[Azure Database for PostgreSQL]** — Managed database backend  
 - **[Terraform IaC]** — Provisions all infrastructure components
+- **[GitHub Actions workflow]** — Checks for updates to the Wallabag image
 
-A high‑level flow:
+A high‑level first infra flow:
 Deploy core infrastructure via Terraform → Import Wallabag official image into ACR → Deploy ACA via Terraform → ACA pulls image → App connects to PostgreSQL
+
+Github Actions workflow
+Use cron to pull upstream image → compare digest to image in ACR → if different, push update to ACR and update Container App with Terraform
+Uses Azure Service Principal for authentication 
 
 ---
 
@@ -121,7 +126,7 @@ Secrets such as database credentials are currently stored using:
 
 - Azure Key Vault for secrets management
 - Managed identity for authentication
-- Add CI/CD pipelines (using GitHub Actions) to monitor for updates to the image
+- Add CI/CD pipelines (using GitHub Actions) to monitor for updates to the image [x]
 - Add monitoring and alerts via Azure Monitor / Log Analytics  
 - Consider security scanning  
 - Write instructions / documentation
