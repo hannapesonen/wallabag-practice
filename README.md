@@ -106,7 +106,7 @@ terraform apply
 
 
 ### 4. Retrieve the container app URL
-Included in the outputs.tf
+Included in the `outputs.tf`
 
 ---
 
