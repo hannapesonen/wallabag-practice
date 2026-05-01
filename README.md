@@ -126,7 +126,7 @@ Secrets such as database credentials are currently stored using:
 
 - Azure Key Vault for secrets management
 - Managed identity for authentication
-- Add CI/CD pipelines (using GitHub Actions) to monitor for updates to the image :heavy_check_mark:
+- ~~ Add CI/CD pipelines (using GitHub Actions) to monitor for updates to the image ~~ :heavy_check_mark:
 - Add monitoring and alerts via Azure Monitor / Log Analytics  
 - Consider security scanning  
 - Write instructions / documentation
