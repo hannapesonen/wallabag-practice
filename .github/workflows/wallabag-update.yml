@@ -18,15 +18,19 @@ jobs:
               uses: azure/login@v2
               with:
                 creds: ${{ secrets.AZURE_CREDENTIALS }}
+            
             - name: Log into ACR
               run: |
                 az acr login --name ${{ secrets.ACR_NAME}}
+            
             - name: Pull upstream Wallabag image
               run: |
                 docker pull wallabag/wallabag:latest
+            
             - name: Pull current ACR image
               run: |
                 docker pull ${{ secrets.ACR_NAME}}.azurecr.io/wallabag:latest || true
+            
             - name: Compare digests
               id: digest
               run: |
@@ -35,14 +39,17 @@ jobs:
 
                 echo "upstream=$UPSTREAM" >> $GITHUB_OUTPUT
                 echo "local=$LOCAL" >> $GITHUB_OUTPUT
+            
             - name: Stop if no update
               if: steps.digest.outputs.upstream == steps.digest.outputs.local
               run: echo "No update needed"
+            
             - name: Push updated image to ACR
               if: steps.digest.outputs.upstream != steps.digest.outputs.local
               run: |
                 docker tag wallabag/wallabag:latest ${{ secrets.ACR_NAME}}.azurecr.io/wallabag:latest
                 docker push ${{ secrets.ACR_NAME}}.azurecr.io/wallabag:latest
+            
             - name: Deploy updated image (with Terraform)
               if: steps.digest.outputs.upstream != steps.digest.outputs.local
               working-directory: infra
